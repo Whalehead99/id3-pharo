@@ -51,8 +51,8 @@ ID3v1Tag >> genreCode [
 
 { #category : #private }
 ID3v1Tag >> genreNameFor: aGenreCode [
-"this won't work for genreCode = 0 - knownGenreCodesMapping returns an array - can't do array at: 0"
-" also, I think his list of genres is old - there are 148 now, with 148 being unknown"
+"I think his list of genres is old - there are 148 now, with 148 being unknown"
+
 	^ (aGenreCode between: 0 and: 125)
 		ifTrue: [ self knownGenreCodesMapping at: aGenreCode ]
 		ifFalse: [ 'Unknown' ]

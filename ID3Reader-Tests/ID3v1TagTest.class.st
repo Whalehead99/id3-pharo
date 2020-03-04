@@ -4,7 +4,7 @@ Class {
 	#category : #'ID3Reader-Tests'
 }
 
-{ #category : #helpers }
+{ #category : #'delete test as unnecessary' }
 ID3v1TagTest >> tagTitled: aTitle [
 
 	^ self
@@ -29,7 +29,7 @@ ID3v1TagTest >> tagTitled: aTitle artist: anArtistName album: anAlbumName year: 
 	^ ID3v1Tag withBytes: 'TAG' asByteArray , title , artist , album , year , comment , genre
 ]
 
-{ #category : #helpers }
+{ #category : #'delete test as unnecessary' }
 ID3v1TagTest >> tagWithAlbum: anAlbumName [
 
 	^ self
@@ -41,7 +41,7 @@ ID3v1TagTest >> tagWithAlbum: anAlbumName [
 		genre: 0
 ]
 
-{ #category : #helpers }
+{ #category : #'delete test as unnecessary' }
 ID3v1TagTest >> tagWithArtist: anArtistName [
 
 	^ self
@@ -53,7 +53,7 @@ ID3v1TagTest >> tagWithArtist: anArtistName [
 		genre: 0
 ]
 
-{ #category : #helpers }
+{ #category : #'delete test as unnecessary' }
 ID3v1TagTest >> tagWithComment: aComment [
 
 	^ self
@@ -65,7 +65,7 @@ ID3v1TagTest >> tagWithComment: aComment [
 		genre: 0
 ]
 
-{ #category : #helpers }
+{ #category : #'delete test as unnecessary' }
 ID3v1TagTest >> tagWithGenre: aGenreCode [
 
 	^ self
@@ -77,7 +77,7 @@ ID3v1TagTest >> tagWithGenre: aGenreCode [
 		genre: aGenreCode
 ]
 
-{ #category : #helpers }
+{ #category : #'delete test as unnecessary' }
 ID3v1TagTest >> tagWithYear: aYear [
 
 	^ self
@@ -89,7 +89,7 @@ ID3v1TagTest >> tagWithYear: aYear [
 		genre: 0
 ]
 
-{ #category : #fields }
+{ #category : #'delete test as unnecessary' }
 ID3v1TagTest >> testShouldParseTheSongAlbum [
 
 	| tag |
@@ -98,7 +98,7 @@ ID3v1TagTest >> testShouldParseTheSongAlbum [
 	self assert: tag album equals: 'Piano Bar'
 ]
 
-{ #category : #fields }
+{ #category : #'delete test as unnecessary' }
 ID3v1TagTest >> testShouldParseTheSongArtist [
 
 	| tag |
@@ -107,7 +107,7 @@ ID3v1TagTest >> testShouldParseTheSongArtist [
 	self assert: tag artist equals: 'Serú Girán'
 ]
 
-{ #category : #fields }
+{ #category : #'delete test as unnecessary' }
 ID3v1TagTest >> testShouldParseTheSongComment [
 
 	| tag |
@@ -116,7 +116,7 @@ ID3v1TagTest >> testShouldParseTheSongComment [
 	self assert: tag comment equals: 'my favourite song'
 ]
 
-{ #category : #fields }
+{ #category : #'delete test as unnecessary' }
 ID3v1TagTest >> testShouldParseTheSongGenre [
 
 	| tag |
@@ -126,7 +126,7 @@ ID3v1TagTest >> testShouldParseTheSongGenre [
 	self assert: tag genre equals: 'Psychedelic Rock'
 ]
 
-{ #category : #fields }
+{ #category : #'delete test as unnecessary' }
 ID3v1TagTest >> testShouldParseTheSongTitle [
 
 	| tag |
@@ -135,11 +135,36 @@ ID3v1TagTest >> testShouldParseTheSongTitle [
 	self assert: tag title equals: 'Confesiones de invierno'
 ]
 
-{ #category : #fields }
+{ #category : #'delete test as unnecessary' }
 ID3v1TagTest >> testShouldParseTheSongYear [
 
 	| tag |
 	tag := self tagWithYear: 2005.
 	
 	self assert: tag year equals: 2005
+]
+
+{ #category : #helpers }
+ID3v1TagTest >> testTagTitledArtistAlbumYearCommentGenre [
+
+	| tag |
+
+	tag := self tagTitled: 'what can I say' 
+					artist: 'boz sKaggs' 
+					album: 'silK degreeS' 
+					year: 1976	
+					comment: 'what a great album!' 
+					genre: 0.
+
+"change this IF we run it through normalization for first capitals"
+	self 
+		assert: tag title 			equals: 'what can I say'; 
+		assert: tag artist 		equals: 'boz sKaggs'; 
+		assert: tag album 			equals: 'silK degreeS'; 
+		assert: tag year 			equals: 1976;
+		assert: tag comment 		equals: 'what a great album!';
+		assert: tag genreCode 	equals: 0;
+		assert: tag genre 			equals: 'Blues'. 
+
+"ID3v1Tag withBytes: 'TAG' asByteArray , title , artist , album , year , comment , genre"
 ]
