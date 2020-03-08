@@ -67,7 +67,7 @@ ID3Parser >> hasID3v2Tag [
 	^ (self stream next: self id3v2TagIdentifierSize) asString = self id3v2TagIdentifier
 ]
 
-{ #category : #testing }
+{ #category : #frames }
 ID3Parser >> header [
 
 	| headerBytes |
