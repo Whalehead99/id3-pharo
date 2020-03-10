@@ -63,7 +63,8 @@ ID3Parser >> hasID3v1Tag [
 { #category : #testing }
 ID3Parser >> hasID3v2Tag [
 
-	self stream reset.
+"	self stream reset."
+	self stream position: 1.
 	^ (self stream next: self id3v2TagIdentifierSize) asString = self id3v2TagIdentifier
 ]
 
