@@ -64,7 +64,7 @@ ID3Parser >> hasID3v1Tag [
 ID3Parser >> hasID3v2Tag [
 
 "	self stream reset."
-	self stream position: 1.
+	self stream position: 0.
 	^ (self stream next: self id3v2TagIdentifierSize) asString = self id3v2TagIdentifier
 ]
 
@@ -89,7 +89,8 @@ ID3Parser >> headerSize [
 { #category : #private }
 ID3Parser >> id3v1Bytes [
 
-	^ self stream last: self id3v1TagSize
+	^((self stream position: (stream size - 128)) next: 128)
+"	^ self stream last: self id3v1TagSize"
 ]
 
 { #category : #id3v1 }
