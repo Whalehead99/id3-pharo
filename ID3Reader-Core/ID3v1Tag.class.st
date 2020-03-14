@@ -17,7 +17,7 @@ ID3v1Tag class >> withBytes: aByteArray [
 ID3v1Tag >> album [
 "my test is showing different offsets"
 
-	^ self fieldStartingOnByte: 66 length: 29
+	^ self fieldStartingOnByte: 64 length: 29
 "	^ self fieldStartingOnByte: 64 length: 30"
 ]
 
@@ -25,7 +25,7 @@ ID3v1Tag >> album [
 ID3v1Tag >> artist [
 "my tests are showing different offsets"
 
-	^ (self fieldStartingOnByte: 36 length: 19)
+	^ (self fieldStartingOnByte: 34 length: 19)
 "	^ self fieldStartingOnByte: 34 length: 30"
 ]
 
@@ -38,8 +38,8 @@ ID3v1Tag >> comment [
 { #category : #private }
 ID3v1Tag >> fieldStartingOnByte: anIndex length: aNumber [
 
-	^ ((bytes position: anIndex) next: aNumber) asString
-"	^ ((bytes copyFrom: anIndex to: anIndex + aNumber) copyUpTo: 0) asString"
+	"^ ((bytes position: anIndex) next: aNumber) asString"
+	^ ((bytes copyFrom: anIndex to: anIndex + aNumber) copyUpTo: 0) asString
 ]
 
 { #category : #fields }
