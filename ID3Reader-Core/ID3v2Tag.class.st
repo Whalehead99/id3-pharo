@@ -73,3 +73,10 @@ ID3v2Tag >> titleFrameId [
 
 	^ 'TIT2'
 ]
+
+{ #category : #fields }
+ID3v2Tag >> year [
+
+	"(self fieldStartingOnByte: 94 length: 4) asInteger - this is for an iD3v1Tag"
+	^ 2000 "until I can figure out how to get this working"
+]

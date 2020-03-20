@@ -38,8 +38,8 @@ ID3v1Tag >> comment [
 { #category : #private }
 ID3v1Tag >> fieldStartingOnByte: anIndex length: aNumber [
 
-	"^ ((bytes position: anIndex) next: aNumber) asString"
-	^ ((bytes copyFrom: anIndex to: anIndex + aNumber) copyUpTo: 0) asString
+	^ ((bytes position: anIndex) next: aNumber) asString
+	"^ ((bytes copyFrom: anIndex to: anIndex + aNumber) copyUpTo: 0) asString"
 ]
 
 { #category : #fields }
