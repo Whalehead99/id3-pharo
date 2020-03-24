@@ -17,7 +17,7 @@ ID3v1Tag class >> withBytes: aByteArray [
 ID3v1Tag >> album [
 "my test is showing different offsets"
 
-	^ self fieldStartingOnByte: 64 length: 29
+	^ (self fieldStartingOnByte: 64 length: 29) 
 "	^ self fieldStartingOnByte: 64 length: 30"
 ]
 
@@ -25,21 +25,21 @@ ID3v1Tag >> album [
 ID3v1Tag >> artist [
 "my tests are showing different offsets"
 
-	^ (self fieldStartingOnByte: 34 length: 19)
+	^ (self fieldStartingOnByte: 34 length: 29)
 "	^ self fieldStartingOnByte: 34 length: 30"
 ]
 
 { #category : #fields }
 ID3v1Tag >> comment [
 
-	^ self fieldStartingOnByte: 98 length: 30
+	^ self fieldStartingOnByte: 97 length: 30
 ]
 
 { #category : #private }
 ID3v1Tag >> fieldStartingOnByte: anIndex length: aNumber [
 
-	^ ((bytes position: anIndex) next: aNumber) asString
-	"^ ((bytes copyFrom: anIndex to: anIndex + aNumber) copyUpTo: 0) asString"
+"	^ ((bytes position: anIndex) next: aNumber) asString"
+	^ ((bytes copyFrom: anIndex to: anIndex + aNumber) copyUpTo: 0) asString
 ]
 
 { #category : #fields }
@@ -51,7 +51,8 @@ ID3v1Tag >> genre [
 { #category : #fields }
 ID3v1Tag >> genreCode [
 
-	^ bytes last
+	"^ bytes last"
+		^ self fieldStartingOnByte: 127 length: 1
 ]
 
 { #category : #private }
@@ -61,6 +62,14 @@ ID3v1Tag >> genreNameFor: aGenreCode [
 	^ (aGenreCode between: 0 and: 125)
 		ifTrue: [ self knownGenreCodesMapping at: aGenreCode ]
 		ifFalse: [ 'Unknown' ]
+]
+
+{ #category : #testing }
+ID3v1Tag >> hasID3v1Tag [
+
+	^ [ (self fieldStartingOnByte: 0 length: 3) asString = 'TAG' ]
+		on: Error
+		do: [ :exc | false ]
 ]
 
 { #category : #initialization }
@@ -203,14 +212,26 @@ ID3v1Tag >> knownGenreCodesMapping [
 )
 ]
 
+{ #category : #testing }
+ID3v1Tag >> showID3v1Tag [
+
+	^ (self fieldStartingOnByte: 0 length: 128) asString 
+]
+
 { #category : #fields }
 ID3v1Tag >> title [
 
-	^ self fieldStartingOnByte: 4 length: 30
+	^ self fieldStartingOnByte: 4 length: 29
+]
+
+{ #category : #fields }
+ID3v1Tag >> track [
+
+	^ self fieldStartingOnByte: 126 length: 1
 ]
 
 { #category : #fields }
 ID3v1Tag >> year [
 
-	^ (self fieldStartingOnByte: 94 length: 4) asInteger
+	^ (self fieldStartingOnByte: 93 length: 4) asInteger
 ]
