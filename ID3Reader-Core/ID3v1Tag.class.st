@@ -32,7 +32,7 @@ ID3v1Tag >> artist [
 { #category : #fields }
 ID3v1Tag >> comment [
 
-	^ self fieldStartingOnByte: 97 length: 30
+	^ self fieldStartingOnByte: 98 length: 29
 ]
 
 { #category : #private }
@@ -52,7 +52,9 @@ ID3v1Tag >> genre [
 ID3v1Tag >> genreCode [
 
 	"^ bytes last"
-		^ self fieldStartingOnByte: 127 length: 1
+	"^((bytes copyFrom: 127 to: 128) copyUpTo: 0)"
+	^ bytes byteAt: 127
+	"^ self fieldStartingOnByte: 127 length: 1"
 ]
 
 { #category : #private }
@@ -67,9 +69,9 @@ ID3v1Tag >> genreNameFor: aGenreCode [
 { #category : #testing }
 ID3v1Tag >> hasID3v1Tag [
 
-	^ [ (self fieldStartingOnByte: 0 length: 3) asString = 'TAG' ]
-		on: Error
-		do: [ :exc | false ]
+	"^ (self fieldStartingOnByte: 0 length: 3) asString = 'TAG'"
+	^ bytes beginsWith: ('TAG' asOctetString )
+		
 ]
 
 { #category : #initialization }
@@ -215,7 +217,8 @@ ID3v1Tag >> knownGenreCodesMapping [
 { #category : #testing }
 ID3v1Tag >> showID3v1Tag [
 
-	^ (self fieldStartingOnByte: 0 length: 128) asString 
+	"^ (self fieldStartingOnByte: 0 length: 128)" "asString" 
+	^ bytes asString
 ]
 
 { #category : #fields }
