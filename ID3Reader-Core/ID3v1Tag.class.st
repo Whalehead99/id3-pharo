@@ -32,7 +32,7 @@ ID3v1Tag >> artist [
 { #category : #fields }
 ID3v1Tag >> comment [
 
-	^ self fieldStartingOnByte: 98 length: 29
+	^ self fieldStartingOnByte: 98 length: 28
 ]
 
 { #category : #private }
@@ -51,10 +51,8 @@ ID3v1Tag >> genre [
 { #category : #fields }
 ID3v1Tag >> genreCode [
 
-	"^ bytes last"
-	"^((bytes copyFrom: 127 to: 128) copyUpTo: 0)"
-	^ bytes byteAt: 127
-	"^ self fieldStartingOnByte: 127 length: 1"
+	^ bytes byteAt: 128
+
 ]
 
 { #category : #private }
@@ -230,7 +228,8 @@ ID3v1Tag >> title [
 { #category : #fields }
 ID3v1Tag >> track [
 
-	^ self fieldStartingOnByte: 126 length: 1
+	"^ self fieldStartingOnByte: 126 length: 1"
+	^ bytes byteAt: 127
 ]
 
 { #category : #fields }
